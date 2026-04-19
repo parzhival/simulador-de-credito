@@ -1,68 +1,78 @@
-//AQUI EL JAVASCRIPT PARA MANIPULAR EL HTML
-function calcular(){
-    let ingresos=document.getElementById("txtIngresos");
-    let egresos=document.getElementById("txtEgresos");
-    let valorDisponible1;
-    let valorDisponible;
-    let ingresosFloat;
-    let egresosFloat;
-    let total;
-    let capacidadPago1;
-    let capacidadPago;
-    let pago;
-    let monto=document.getElementById("txtMonto");
-    let tiempo=document.getElementById("txtPlazo");
-    let tasa=document.getElementById("txtTasaInteres");
-    let montoInt;
-    let tiempoInt;
-    let tasaInt;
-    let cuota;
-    let cuota1;
-    let cuota2;
-    let totalPagar;
-    let totalPagar1;
-    let cuotaMensual;
-    let cuotaMensual1;
-    let cuotaMensualFinal;
-    let credito1;
-    let credito;
-       
-    ingresosFloat=parseFloat(ingresos.value);
-    egresosFloat=parseFloat(egresos.value);
+function calcular() {
+    // 1. Captura de componentes
+    const campos = [
+        { id: "txtIngresos", nombre: "Ingresos" },
+        { id: "txtEgresos", nombre: "Egresos" },
+        { id: "txtMonto", nombre: "Monto" },
+        { id: "txtPlazo", nombre: "Plazo" },
+        { id: "txtTasaInteres", nombre: "Tasa" }
+    ];
 
-    valorDisponible1=calcularDisponible(ingresosFloat,egresosFloat);
-    valorDisponible=valorDisponible1.toFixed(2);
-    total=document.getElementById("spnDisponible");
-    total.textContent=valorDisponible;
+    // Limpiar errores previos y estado
+    document.querySelectorAll('input').forEach(i => i.classList.remove('input-error'));
+    const spnEstado = document.getElementById("spnEstadoCredito");
+    spnEstado.className = "status"; // reset clase
 
-    capacidadPago1=calcularCapacidadPago(valorDisponible);
-    capacidadPago=capacidadPago1.toFixed(2);
-    pago=document.getElementById("spnCapacidadPago");
-    pago.textContent=capacidadPago;
+    // 2. Validación de campos obligatorios y valores numéricos
+    for (let campo of campos) {
+        let elemento = document.getElementById(campo.id);
+        let valor = parseFloat(elemento.value);
 
-    montoInt=parseInt(monto.value);
-    tiempoInt=parseInt(tiempo.value);
-    tasaInt=parseInt(tasa.value);
+        if (elemento.value === "" || isNaN(valor) || valor < 0) {
+            alert(`El campo ${campo.nombre} es obligatorio y debe ser un número positivo.`);
+            elemento.classList.add('input-error');
+            elemento.focus();
+            return; // Detiene la función
+        }
+    }
 
-    cuota=calcularInteresSimple(montoInt,tasaInt,tiempoInt);
-    cuota1=cuota.toFixed(2);
-    cuota2=document.getElementById("spnInteresPagar");
-    cuota2.textContent=cuota1;
+    // 3. Validaciones de políticas bancarias (Montos de Negocio)
+    let montoVal = parseFloat(document.getElementById("txtMonto").value);
+    let plazoVal = parseInt(document.getElementById("txtPlazo").value);
+    let tasaVal = parseFloat(document.getElementById("txtTasaInteres").value);
 
-    totalPagar=calcularTotalPagar(montoInt,cuota);
-    totalPagar1=document.getElementById("spnTotalPrestamo");
-    totalPagar1.textContent=totalPagar;
+    if (montoVal < 500 || montoVal > 50000) {
+        alert("El monto debe estar entre $500 y $50,000.");
+        return;
+    }
 
-    cuotaMensual=calcularCuotaMensual(totalPagar,tiempoInt);
-    cuotaMensual1=cuotaMensual.toFixed(2);
-    cuotaMensualFinal=document.getElementById("spnCuotaMensual");
-    cuotaMensualFinal.textContent=cuotaMensual1;
+    if (plazoVal < 1 || plazoVal > 30) {
+        alert("El plazo debe ser entre 1 y 30 años.");
+        return;
+    }
 
-    credito1=aprobarCredito(capacidadPago1,cuotaMensual);
-    credito=document.getElementById("spnEstadoCredito");
-    if(credito1==true){
-        credito.textContent="CREDITO APROBADO";
-    }else{
-        credito.textContent="CREDITO RECHAZADO";
+    if (tasaVal > 35) {
+        alert("La tasa de interés no puede superar el 35%.");
+        return;
+    }
+
+    // 4. Lógica de cálculo (Manteniendo tus funciones originales)
+    let ingresosFloat = parseFloat(document.getElementById("txtIngresos").value);
+    let egresosFloat = parseFloat(document.getElementById("txtEgresos").value);
+
+    let valorDisponible = calcularDisponible(ingresosFloat, egresosFloat);
+    document.getElementById("spnDisponible").textContent = valorDisponible.toFixed(2);
+
+    let capacidadPago1 = calcularCapacidadPago(valorDisponible);
+    document.getElementById("spnCapacidadPago").textContent = capacidadPago1.toFixed(2);
+
+    let cuotaInteres = calcularInteresSimple(montoVal, tasaVal, plazoVal);
+    document.getElementById("spnInteresPagar").textContent = cuotaInteres.toFixed(2);
+
+    let totalPagar = calcularTotalPagar(montoVal, cuotaInteres);
+    document.getElementById("spnTotalPrestamo").textContent = totalPagar.toFixed(2);
+
+    let cuotaMensual = calcularCuotaMensual(totalPagar, plazoVal);
+    document.getElementById("spnCuotaMensual").textContent = cuotaMensual.toFixed(2);
+
+    // 5. Resultado final con estilos
+    let aprobado = aprobarCredito(capacidadPago1, cuotaMensual);
+    
+    if (aprobado) {
+        spnEstado.textContent = "CREDITO APROBADO";
+        spnEstado.classList.add("status-approved");
+    } else {
+        spnEstado.textContent = "CREDITO RECHAZADO";
+        spnEstado.classList.add("status-rejected");
     }
 }

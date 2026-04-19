@@ -210,3 +210,46 @@ button {
         max-width: 90%;
     }
 }
+.input-error {
+    border: 2px solid #e74c3c !important;
+    background-color: #fdf2f2 !important;
+    animation: shake 0.4s;
+}
+
+/* Animación simple para el error */
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-5px); }
+    75% { transform: translateX(5px); }
+}
+
+/* Estilos para el estado del crédito */
+.status {
+    text-align: center;
+    font-size: 14px;
+    font-weight: 800;
+    margin-top: 20px;
+    padding: 10px;
+    border-radius: 6px;
+    transition: all 0.3s ease;
+    background: #f1f1f1;
+}
+
+.status-approved {
+    background-color: #27ae60;
+    color: white;
+    box-shadow: 0 4px 15px rgba(39, 174, 96, 0.3);
+}
+
+.status-rejected {
+    background-color: #c0392b;
+    color: white;
+    box-shadow: 0 4px 15px rgba(192, 57, 43, 0.3);
+}
+
+/* Mejoras en el placeholder para que se vea moderno */
+::placeholder {
+    color: #bdc3c7;
+    font-style: italic;
+    font-size: 13px;
+}
