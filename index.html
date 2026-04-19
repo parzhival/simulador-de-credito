@@ -24,12 +24,14 @@
             <h2>Datos financieros</h2>
             <div class="input-group">
                 <label for="txtIngresos">Ingresos mensuales</label>
-                <input type="text" id="txtIngresos" placeholder="$ 0.00">
+                <input type="text" id="txtIngresos" placeholder="Ej. 2500">
+                <span class="error-msg" id="err-txtIngresos"></span>
             </div>
 
             <div class="input-group">
                 <label for="txtEgresos">Egresos mensuales</label>
-                <input type="text" id="txtEgresos" placeholder="$ 0.00">
+                <input type="text" id="txtEgresos" placeholder="Ej. 1000">
+                <span class="error-msg" id="err-txtEgresos"></span>
             </div>
 
             <div class="results-grid">
@@ -42,17 +44,20 @@
             <h2>Solicitud de crédito</h2>
             <div class="input-group">
                 <label for="txtMonto">Monto a solicitar</label>
-                <input type="text" id="txtMonto" placeholder="Ej. 5000">
+                <input type="text" id="txtMonto" placeholder="Min $500 - Max $50,000">
+                <span class="error-msg" id="err-txtMonto"></span>
             </div>
 
             <div class="grid-inputs">
                 <div class="input-group">
                     <label for="txtPlazo">Plazo (años)</label>
-                    <input type="text" id="txtPlazo">
+                    <input type="text" id="txtPlazo" placeholder="1 a 30 años">
+                    <span class="error-msg" id="err-txtPlazo"></span>
                 </div>
                 <div class="input-group">
                     <label for="txtTasaInteres">Tasa (%)</label>
-                    <input type="text" id="txtTasaInteres">
+                    <input type="text" id="txtTasaInteres" placeholder="Máx 35%">
+                    <span class="error-msg" id="err-txtTasaInteres"></span>
                 </div>
             </div>
 
@@ -62,7 +67,7 @@
                 <div class="res-item main"><small>Cuota Mensual:</small> <span id="spnCuotaMensual">--</span></div>
             </div>
             
-            <p class="status">Estado: <span id="spnEstadoCredito">ESPERANDO DATOS</span></p>
+            <p class="status" id="spnEstadoCredito">ESPERANDO DATOS</p>
         </section>
 
         <div class="buttons">

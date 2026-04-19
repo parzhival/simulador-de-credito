@@ -1,0 +1,4 @@
+prompt #1
+asume que eres un desarrollador de software bancario, necesito agregues todas las validaciones que consideres necesarias para el formulario como montos maximos y minimos para el credito y campos obligatorios a llenar dentro del formulario, sin cambiar los ids de los componentes y manteniendo funciones sencillas para poder estudiar el codigo y en el archivo css estiliza al mensaje de error o de campo obligatorio
+
+prompt #2

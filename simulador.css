@@ -15,7 +15,7 @@
 
 body {
     font-family: 'Inter', sans-serif;
-    background-color: #a0cfee;
+    background-color: #4b4b4d57;
     color: var(--text-dark);
     margin: 0;
     padding: 15px; /* Menos padding en móviles */

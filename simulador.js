@@ -1,5 +1,5 @@
 function calcular() {
-    // 1. Captura de componentes
+    // 1. Definición de campos y limpieza de errores previos
     const campos = [
         { id: "txtIngresos", nombre: "Ingresos" },
         { id: "txtEgresos", nombre: "Egresos" },
@@ -8,67 +8,83 @@ function calcular() {
         { id: "txtTasaInteres", nombre: "Tasa" }
     ];
 
-    // Limpiar errores previos y estado
-    document.querySelectorAll('input').forEach(i => i.classList.remove('input-error'));
-    const spnEstado = document.getElementById("spnEstadoCredito");
-    spnEstado.className = "status"; // reset clase
+    let hayError = false;
 
-    // 2. Validación de campos obligatorios y valores numéricos
+    // Limpiar mensajes de error y clases antes de validar
+    campos.forEach(campo => {
+        document.getElementById(campo.id).classList.remove('input-error');
+        document.getElementById(`err-${campo.id}`).textContent = "";
+    });
+
+    // 2. Validación de Campos Obligatorios y Formato Numérico
     for (let campo of campos) {
         let elemento = document.getElementById(campo.id);
-        let valor = parseFloat(elemento.value);
+        let errorSpan = document.getElementById(`err-${campo.id}`);
+        let valorStr = elemento.value.trim();
+        let valorNum = parseFloat(valorStr);
 
-        if (elemento.value === "" || isNaN(valor) || valor < 0) {
-            alert(`El campo ${campo.nombre} es obligatorio y debe ser un número positivo.`);
+        if (valorStr === "") {
+            errorSpan.textContent = "Campo obligatorio";
             elemento.classList.add('input-error');
-            elemento.focus();
-            return; // Detiene la función
+            hayError = true;
+        } else if (isNaN(valorNum) || valorNum < 0) {
+            errorSpan.textContent = "Debe ser un número";
+            elemento.classList.add('input-error');
+            hayError = true;
         }
     }
 
-    // 3. Validaciones de políticas bancarias (Montos de Negocio)
-    let montoVal = parseFloat(document.getElementById("txtMonto").value);
-    let plazoVal = parseInt(document.getElementById("txtPlazo").value);
-    let tasaVal = parseFloat(document.getElementById("txtTasaInteres").value);
+    if (hayError) return; // Detener si hay errores básicos
+
+    // 3. Validaciones de Reglas de Negocio Bancarias
+    const montoVal = parseFloat(document.getElementById("txtMonto").value);
+    const plazoVal = parseInt(document.getElementById("txtPlazo").value);
+    const tasaVal = parseFloat(document.getElementById("txtTasaInteres").value);
 
     if (montoVal < 500 || montoVal > 50000) {
-        alert("El monto debe estar entre $500 y $50,000.");
-        return;
+        document.getElementById("err-txtMonto").textContent = "Fuera de rango ($500 - $50k)";
+        document.getElementById("txtMonto").classList.add('input-error');
+        hayError = true;
     }
 
     if (plazoVal < 1 || plazoVal > 30) {
-        alert("El plazo debe ser entre 1 y 30 años.");
-        return;
+        document.getElementById("err-txtPlazo").textContent = "Plazo inválido (1-30)";
+        document.getElementById("txtPlazo").classList.add('input-error');
+        hayError = true;
     }
 
     if (tasaVal > 35) {
-        alert("La tasa de interés no puede superar el 35%.");
-        return;
+        document.getElementById("err-txtTasaInteres").textContent = "Tasa máxima 35%";
+        document.getElementById("txtTasaInteres").classList.add('input-error');
+        hayError = true;
     }
 
-    // 4. Lógica de cálculo (Manteniendo tus funciones originales)
-    let ingresosFloat = parseFloat(document.getElementById("txtIngresos").value);
-    let egresosFloat = parseFloat(document.getElementById("txtEgresos").value);
+    if (hayError) return;
 
-    let valorDisponible = calcularDisponible(ingresosFloat, egresosFloat);
-    document.getElementById("spnDisponible").textContent = valorDisponible.toFixed(2);
+    // 4. Cálculos (Llamando a tus funciones externas)
+    const ingresos = parseFloat(document.getElementById("txtIngresos").value);
+    const egresos = parseFloat(document.getElementById("txtEgresos").value);
 
-    let capacidadPago1 = calcularCapacidadPago(valorDisponible);
-    document.getElementById("spnCapacidadPago").textContent = capacidadPago1.toFixed(2);
+    const disponible = calcularDisponible(ingresos, egresos);
+    document.getElementById("spnDisponible").textContent = disponible.toFixed(2);
 
-    let cuotaInteres = calcularInteresSimple(montoVal, tasaVal, plazoVal);
-    document.getElementById("spnInteresPagar").textContent = cuotaInteres.toFixed(2);
+    const capacidad = calcularCapacidadPago(disponible);
+    document.getElementById("spnCapacidadPago").textContent = capacidad.toFixed(2);
 
-    let totalPagar = calcularTotalPagar(montoVal, cuotaInteres);
-    document.getElementById("spnTotalPrestamo").textContent = totalPagar.toFixed(2);
+    const interes = calcularInteresSimple(montoVal, tasaVal, plazoVal);
+    document.getElementById("spnInteresPagar").textContent = interes.toFixed(2);
 
-    let cuotaMensual = calcularCuotaMensual(totalPagar, plazoVal);
-    document.getElementById("spnCuotaMensual").textContent = cuotaMensual.toFixed(2);
+    const total = calcularTotalPagar(montoVal, interes);
+    document.getElementById("spnTotalPrestamo").textContent = total.toFixed(2);
 
-    // 5. Resultado final con estilos
-    let aprobado = aprobarCredito(capacidadPago1, cuotaMensual);
-    
-    if (aprobado) {
+    const cuota = calcularCuotaMensual(total, plazoVal);
+    document.getElementById("spnCuotaMensual").textContent = cuota.toFixed(2);
+
+    // 5. Resultado Visual
+    const spnEstado = document.getElementById("spnEstadoCredito");
+    spnEstado.className = "status"; // Reset
+
+    if (aprobarCredito(capacidad, cuota)) {
         spnEstado.textContent = "CREDITO APROBADO";
         spnEstado.classList.add("status-approved");
     } else {
