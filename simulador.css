@@ -1,70 +1,212 @@
+:root {
+    --primary-color: #1a3a5d;
+    --accent-color: #3498db;
+    --text-dark: #2c3e50;
+    --text-light: #7f8c8d;
+    --bg-body: #f0f4f8;
+    --bg-card: #ffffff;
+    --border-color: #e1e8ed;
+}
+
+/* Base y Reset */
+* {
+    box-sizing: border-box;
+}
+
 body {
-    font-family: Arial, sans-serif;
-    background-color: #f4f6f8;
+    font-family: 'Inter', sans-serif;
+    background-color: #a0cfee;
+    color: var(--text-dark);
     margin: 0;
-    padding: 0;
+    padding: 15px; /* Menos padding en móviles */
+    line-height: 1.6;
 }
 
 .container {
-    width: 400px;
-    margin: 40px auto;
-    padding: 20px;
-    background-color: white;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    width: 100%;
+    max-width: 500px; /* Tamaño ideal para escritorio/tablet */
+    margin: 20px auto;
+}
+
+/* Header Responsivo */
+.brand-header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 25px;
+    text-align: center;
+}
+
+.logo-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    margin-bottom: 10px;
+    width: 100%;
+}
+
+.brand-logo {
+    height: clamp(28px, 5vw, 36px); /* Tamaño fluido según pantalla */
+    width: auto;
+}
+
+.brand-name {
+    font-weight: 600;
+    font-size: clamp(18px, 6vw, 24px); /* Título fluido */
+    color: var(--primary-color);
 }
 
 h1 {
-    text-align: center;
+    font-size: 0.85rem;
+    color: var(--text-light);
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    margin: 0;
+}
+
+/* Tarjetas */
+.card {
+    background: var(--bg-card);
+    padding: clamp(15px, 5vw, 25px); /* Padding interno adaptable */
+    border-radius: 12px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.05);
     margin-bottom: 20px;
+    border: 1px solid var(--border-color);
 }
 
 h2 {
-    margin-top: 20px;
-    font-size: 18px;
+    font-size: 14px;
+    color: var(--primary-color);
+    border-bottom: 2px solid var(--accent-color);
+    display: inline-block;
+    padding-bottom: 4px;
+    margin-bottom: 15px;
+}
+
+/* Formularios */
+.input-group {
+    margin-bottom: 15px;
 }
 
 label {
+    font-size: 13px;
+    font-weight: 600;
+    margin-bottom: 6px;
     display: block;
-    margin-top: 10px;
-    font-weight: bold;
 }
 
 input {
     width: 100%;
-    padding: 8px;
-    margin-top: 5px;
-    border-radius: 5px;
-    border: 1px solid #ccc;
-    box-sizing: border-box;
+    padding: 12px;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    font-size: 16px; /* 16px evita el zoom automático en iOS */
 }
 
-p {
-    margin-top: 10px;
+/* Grid de Inputs (Plazo y Tasa) */
+.grid-inputs {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
 }
 
-span {
-    font-weight: bold;
-    color: #2c3e50;
+/* Resultados */
+.results-grid {
+    background: #f8fafc;
+    padding: 15px;
+    border-radius: 8px;
+    margin-top: 15px;
 }
 
-.buttons {
-    margin-top: 20px;
+.results-grid p {
+    margin: 8px 0;
+    font-size: 14px;
     display: flex;
     justify-content: space-between;
 }
 
-button {
-    width: 48%;
-    padding: 10px;
-    border: none;
-    border-radius: 5px;
-    background-color: #3498db;
-    color: white;
-    font-weight: bold;
-    cursor: pointer;
+/* Destacados de Pago */
+.results-highlight {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-top: 20px;
 }
 
-button:hover {
-    background-color: #2980b9;
+.res-item {
+    background: #fdfdfd;
+    padding: 10px;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    text-align: center;
+}
+
+.res-item.main {
+    grid-column: span 2;
+    background: var(--primary-color);
+    color: white;
+}
+
+.res-item.main span {
+    display: block;
+    font-size: 1.5rem;
+    font-weight: 600;
+}
+
+/* Botones */
+.buttons {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+}
+
+button {
+    flex: 1;
+    padding: 15px;
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.btn-primary { background-color: var(--primary-color); color: white; }
+.btn-secondary { background-color: #e1e8ed; color: var(--text-dark); }
+
+/* --- MEDIA QUERIES PARA MÓVILES --- */
+
+@media (max-width: 480px) {
+    body {
+        padding: 10px;
+    }
+
+    .container {
+        margin: 10px auto;
+    }
+
+    /* En móviles muy pequeños, los botones se apilan */
+    .buttons {
+        flex-direction: column;
+    }
+
+    button {
+        width: 100%;
+    }
+
+    /* Ajuste de la rejilla de resultados para que no se vea apretada */
+    .results-highlight {
+        grid-template-columns: 1fr;
+    }
+
+    .res-item.main {
+        grid-column: span 1;
+    }
+}
+
+/* Ajuste para Tablets */
+@media (min-width: 481px) and (max-width: 768px) {
+    .container {
+        max-width: 90%;
+    }
 }

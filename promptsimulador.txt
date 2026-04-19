@@ -1,0 +1,8 @@
+prompt #1
+necesito que actues como un diseñador grafico y modifiques la interfaz de estilos de la siguiente pagina a un estilo empresarial y moderno manteniendo los archivos html y css separados, no modifiques los ids de los componentes en el html.
+
+prompt #2
+necesito que en los cambios realizados agregues esta imagen como un pequeño logo a un lado del titulo manteniendo una estructura simetrica, adaptando el tamaño de la misma al que se requiera para mantener la simetría
+
+prompt #3
+ahora necesito que mantengas los cambios realizados y realices el responsive mobile para alinear la visualizacion para distintos formatos como pc, telefonos moviles o tablets

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aurea Capital | Simulador de Crédito</title>
+    <link rel="stylesheet" href="simulador.css">
+    <script src="simulador.js"></script>
+    <script src="funciones.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <div class="container">
+        <header class="brand-header">
+            <div class="logo-container">
+                <img src="logo_banco.png" alt="Logo Aurea Capital" class="brand-logo">
+                <div class="brand-name">AUREA<span>CAPITAL</span></div>
+            </div>
+            <h1>Simulador de Crédito</h1>
+        </header>
+
+        <section class="card">
+            <h2>Datos financieros</h2>
+            <div class="input-group">
+                <label for="txtIngresos">Ingresos mensuales</label>
+                <input type="text" id="txtIngresos" placeholder="$ 0.00">
+            </div>
+
+            <div class="input-group">
+                <label for="txtEgresos">Egresos mensuales</label>
+                <input type="text" id="txtEgresos" placeholder="$ 0.00">
+            </div>
+
+            <div class="results-grid">
+                <p>Disponible: <span id="spnDisponible">--</span></p>
+                <p>Capacidad de pago: <span id="spnCapacidadPago">--</span></p>
+            </div>
+        </section>
+
+        <section class="card">
+            <h2>Solicitud de crédito</h2>
+            <div class="input-group">
+                <label for="txtMonto">Monto a solicitar</label>
+                <input type="text" id="txtMonto" placeholder="Ej. 5000">
+            </div>
+
+            <div class="grid-inputs">
+                <div class="input-group">
+                    <label for="txtPlazo">Plazo (años)</label>
+                    <input type="text" id="txtPlazo">
+                </div>
+                <div class="input-group">
+                    <label for="txtTasaInteres">Tasa (%)</label>
+                    <input type="text" id="txtTasaInteres">
+                </div>
+            </div>
+
+            <div class="results-highlight">
+                <div class="res-item"><small>Interés:</small> <span id="spnInteresPagar">--</span></div>
+                <div class="res-item"><small>Total:</small> <span id="spnTotalPrestamo">--</span></div>
+                <div class="res-item main"><small>Cuota Mensual:</small> <span id="spnCuotaMensual">--</span></div>
+            </div>
+            
+            <p class="status">Estado: <span id="spnEstadoCredito">ESPERANDO DATOS</span></p>
+        </section>
+
+        <div class="buttons">
+            <button onclick="calcular();" id="btnCalcularCredito" class="btn-primary">Calcular Crédito</button>
+            <button id="btnReiniciar" class="btn-secondary">Reiniciar</button>
+        </div>
+    </div>
+</body>
+</html>
