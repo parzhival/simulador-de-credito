@@ -26,7 +26,7 @@ function calcular(){
     let cuotaMensualFinal;
     let credito1;
     let credito;
-
+       
     ingresosFloat=parseFloat(ingresos.value);
     egresosFloat=parseFloat(egresos.value);
 
