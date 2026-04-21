@@ -1,8 +1,10 @@
 function calcular() {
-    // 1. Definición de campos y limpieza de errores previos
+    
     const campos = [
         { id: "txtIngresos", nombre: "Ingresos" },
-        { id: "txtEgresos", nombre: "Egresos" },
+        { id: "txtArriendo", nombre: "Arriendo" },
+        { id: "txtAlimentacion", nombre: "Alimentación" },
+        { id: "txtVarios", nombre: "Varios" },
         { id: "txtMonto", nombre: "Monto" },
         { id: "txtPlazo", nombre: "Plazo" },
         { id: "txtTasaInteres", nombre: "Tasa" }
@@ -10,13 +12,13 @@ function calcular() {
 
     let hayError = false;
 
-    // Limpiar mensajes de error y clases antes de validar
+    
     campos.forEach(campo => {
         document.getElementById(campo.id).classList.remove('input-error');
         document.getElementById(`err-${campo.id}`).textContent = "";
     });
 
-    // 2. Validación de Campos Obligatorios y Formato Numérico
+    
     for (let campo of campos) {
         let elemento = document.getElementById(campo.id);
         let errorSpan = document.getElementById(`err-${campo.id}`);
@@ -32,6 +34,7 @@ function calcular() {
             elemento.classList.add('input-error');
             hayError = true;
         }
+        
     }
 
     if (hayError) return; // Detener si hay errores básicos
@@ -63,7 +66,9 @@ function calcular() {
 
     // 4. Cálculos (Llamando a tus funciones externas)
     const ingresos = parseFloat(document.getElementById("txtIngresos").value);
-    const egresos = parseFloat(document.getElementById("txtEgresos").value);
+    const egresos = parseFloat(document.getElementById("txtArriendo").value) +
+                    parseFloat(document.getElementById("txtAlimentacion").value) +
+                    parseFloat(document.getElementById("txtVarios").value);
 
     const disponible = calcularDisponible(ingresos, egresos);
     document.getElementById("spnDisponible").textContent = disponible.toFixed(2);

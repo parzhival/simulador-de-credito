@@ -2,3 +2,4 @@ prompt #1
 asume que eres un desarrollador de software bancario, necesito agregues todas las validaciones que consideres necesarias para el formulario como montos maximos y minimos para el credito y campos obligatorios a llenar dentro del formulario, sin cambiar los ids de los componentes y manteniendo funciones sencillas para poder estudiar el codigo y en el archivo css estiliza al mensaje de error o de campo obligatorio
 
 prompt #2
+ahora necesito que el valor de monto minimo y maximo, el plazo y la tasa se pueda visualizar dentro de la caja de texto y que desaparezca al momento de ingresar datos en ellas, y si algo falta o es incorrecto al validar todos los campos que en lugar de mostrar un alert que muestre un mensaje como "campo obligatorio" o "los datos deben ser numeros"

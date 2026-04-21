@@ -29,9 +29,16 @@
             </div>
 
             <div class="input-group">
-                <label for="txtEgresos">Egresos mensuales</label>
-                <input type="text" id="txtEgresos" placeholder="Ej. 1000">
-                <span class="error-msg" id="err-txtEgresos"></span>
+                <p>Egresos mensuales</p>
+                <label for="txtEgresos">Arriendo</label>
+                <input type="text" id="txtArriendo" placeholder="Ej. 1000">
+                <span class="error-msg" id="err-txtArriendo"></span>
+                <label for="txtEgresos">Alimentación</label>
+                <input type="text" id="txtAlimentacion" placeholder="Ej. 1000">
+                <span class="error-msg" id="err-txtAlimentacion"></span>
+                <label for="txtEgresos">Varios</label>
+                <input type="text" id="txtVarios" placeholder="Ej. 1000">
+                <span class="error-msg" id="err-txtVarios"></span>
             </div>
 
             <div class="results-grid">
@@ -72,7 +79,7 @@
 
         <div class="buttons">
             <button onclick="calcular();" id="btnCalcularCredito" class="btn-primary">Calcular Crédito</button>
-            <button id="btnReiniciar" class="btn-secondary">Reiniciar</button>
+            <button id="btnReiniciar" class="btn-secondary" onclick="reiniciar();">Reiniciar</button>
         </div>
     </div>
 </body>
