@@ -46,10 +46,12 @@ function reiniciar(){
     document.getElementById("txtMonto").value="";
     document.getElementById("txtPlazo").value="";
     document.getElementById("txtTasaInteres").value="";
-    document.getElementById("spnDisponible").textContent = "";
-    document.getElementById("spnCapacidadPago").textContent = "";
-    document.getElementById("spnInteresPagar").textContent = "";
-    document.getElementById("spnTotalPrestamo").textContent = "";
-    document.getElementById("spnEstadoCredito").textContent = "";
-    document.getElementById("spnCuotaMensual").textContent = "";
+
+   
+    document.getElementById("spnDisponible").textContent = "--";
+    document.getElementById("spnCapacidadPago").textContent = "--";
+    document.getElementById("spnInteresPagar").textContent = "--";
+    document.getElementById("spnTotalPrestamo").textContent = "--";
+    document.getElementById("spnCuotaMensual").textContent = "--";
+    document.getElementById("spnEstadoCredito").textContent = "ESPERANDO DATOS";
 }
